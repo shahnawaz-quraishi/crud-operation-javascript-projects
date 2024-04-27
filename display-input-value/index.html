@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Value display</title>
+    <style>
+        .container{
+            width: 100%;
+            height: 100vh;    
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+       
+        .header{
+            display: flex;
+            gap: 0px;
+            margin: 100px 100px 20px 100px;
+            background-color: blue;
+            padding: 10px;
+           
+        }
+
+        .sub-heading{
+            margin-left: 150px;
+        }
+
+        .value{
+            display: flex;
+            justify-content: center;
+            gap: 100px; 
+            background-color: chartreuse;
+            padding: 10px;
+            margin: 10px 100px;
+        }
+
+    
+
+        
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="">
+            <label for="name"> Name
+                <input type="text" name="name" class="name">
+            </label>
+            <label for="email"> Email
+                <input type="email" name="email" class="email">
+            </label>
+            <label for="number"> Number
+                <input type="number" name="number" class="number">
+            </label>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+
+        <div class="info">
+            <div class="header">
+                <div class="sub-heading">Sr No.</div>
+                <div class="sub-heading">Name</div>
+                <div class="sub-heading">Email</div>
+                <div class="sub-heading">Phone</div>
+            </div>
+
+            <div class="value-add">
+            <!-- <div class="value">
+                <div class="val-info"></div>
+                <div class="val-info">hdkahf</div>
+                <div class="val-info">dhalk;hflk</div>
+                <div class="val-info">48740-5</div>
+            </div> -->
+
+        </div>
+
+            
+        </div>
+    </div>
+
+
+    <script>
+
+        const form = document.querySelector('form');
+        const valueAdd = document.querySelector('.value-add');
+        const input = document.querySelectorAll('input');
+        
+
+        let arr = [];
+         
+       
+     
+        let strObjs =  localStorage.getItem('forms');
+
+        arr = JSON.parse(strObjs) || null;
+
+    //     let objStr = localStorage.getItem('form');
+
+    //    if(objStr != null){
+    //      arr = JSON.parse(objStr);
+    //    }
+
+           displayInfo();
+
+
+         const formSave = (e) =>{
+
+            console.log("hi")
+            
+
+            let name = e.target.name.value;
+            let email = e.target.email.value;
+            let number = e.target.number.value;
+           e.preventDefault();
+
+           arr.push({name,email,number});
+           console.log(arr);
+
+           saveInfo();
+
+           input.forEach((input) =>{
+               input.value = "";
+           })
+
+           displayInfo();
+
+           
+
+        }
+
+        function saveInfo(){
+            let str = JSON.stringify(arr);
+
+           localStorage.setItem('forms',str);
+           
+          
+        }
+
+        function displayInfo(){
+            let showData = '';
+
+         arr.forEach((elm,i) =>{
+
+ 
+
+         showData += `
+        <div class="value">
+        <div class="val-info num">${i+1}</div>
+        <div class="val-info">${elm.name}</div>
+        <div class="val-info">${elm.email}</div>
+        <div class="val-info">${elm.number}</div>
+        <button type="submit" class="del" onclick="deleteInfo()">delete</button>
+       </div>
+ 
+        `;
+
+        valueAdd.innerHTML = showData;
+
+        })
+        }
+
+        function deleteInfo(id){
+                arr.splice(id,1);
+                saveInfo();
+                displayInfo();
+        }
+
+        form.addEventListener('submit', formSave);
+    </script>
+
+   
+</body>
+</html>

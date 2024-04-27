@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkbox Todo list</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: rgb(43, 36, 85);
+        }
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1{
+            margin-top: 10px;
+            text-align: center;
+            color: blue;
+            text-shadow: 2px 2px 4px  rgb(0, 0, 0);
+        }
+        .input{
+          width: 400px;
+          height: 40px;
+          margin-top: 10px;
+          border: 1px solid rgb(28, 150, 168);
+          padding-left: 15px;
+          outline: none;
+        }
+        .input:focus{
+            border-color: greenyellow;
+        }
+
+        .add{
+          width: 100px;
+          height: 40px;
+          padding:  10px 20px;
+          margin-left: 10px;
+          background-color: springgreen;
+          color: white;
+          border: none;
+        }
+        .list{
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+
+        .result{
+            color:  white;
+        }
+
+        .list-item{
+            display: flex;
+            justify-content: space-between;
+            width: 500px;
+            border: 1px solid black;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: springgreen;
+        }
+
+        .delete{
+            
+            display: none;
+            font-size: 30px;
+            border: none;
+            background-color: springgreen;
+            color: red;
+            
+        }
+
+        .check{
+            width: 50px;
+            height: 30px;
+        }
+
+        .result{
+            width: 60%;
+            font-size: 30px;
+        }
+
+        @media(max-width:430px){
+            .container{
+                width: 100%;
+                padding: 20px;
+            }
+            .content{
+                width: 100%;
+            }
+            .content-item{
+                width: 100%;
+            }
+            .input{
+                width: 100%;
+            }
+            .add{
+                width: 100%;
+                margin-left: 0;
+                margin: 20px 0;
+            }
+            .list-item{
+                width: 100%;
+                margin: 10px 0;
+                align-items: center;
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="content-item">
+            <h1>Todo List</h1>
+            <input type="text" class="input" placeholder="Enter Your Todo List">
+            <button class="add">Add</button>
+        </div>
+        </div>
+        <div class="list">
+            <!-- <div class="list-item">
+                <input type="checkbox" class="check">
+                <span class="result">hiiiiii</span>
+                <button type="submit" class="delete">X</button>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+
+         const list = document.querySelector('.list');
+         const addBtn = document.querySelector('.add');
+         const input = document.querySelector('.input');
+
+         const createTodo = () =>{
+            let inputVal = input.value;
+            
+
+            if(inputVal != ""){
+                
+                const todoData = `
+            
+            <div class="list-item">
+                <input type="checkbox" class="check">
+                <span class="result">${inputVal}</span>
+                <button type="submit" class="delete">X</button>
+            </div>
+            `;
+
+            list.insertAdjacentHTML("afterbegin", todoData);
+
+            // list.innerHTML = todoData;
+
+            input.value = "";
+            }else{
+                alert("please fill the data")
+            }
+
+        
+        const check = list.querySelector('.check');
+        const result = list.querySelector('.result');
+        const deleteBtn = list.querySelector('.delete');
+
+       check.addEventListener('change', () => {
+          if(check.checked){
+             deleteBtn.style.display = "block";
+             result.style.textDecoration = "line-through";
+          }else{
+            deleteBtn.style.display = "none";
+            result.style.textDecoration = "none";
+          }
+       })
+
+       function saveInfo(){
+        localStorage.setItem('test3',inputVal);
+       }
+
+       // delete
+
+       const listItem = document.querySelector('.list-item');
+
+       deleteBtn.addEventListener('click', () =>{
+          listItem.remove();
+       })
+
+    }
+
+ 
+         addBtn.addEventListener('click', createTodo);
+
+    </script>
+</body>
+</html>

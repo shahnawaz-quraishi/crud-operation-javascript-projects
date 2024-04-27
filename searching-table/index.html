@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Search</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;    
+        }
+        .search-field{
+            margin: 20px 0;
+            text-align: center;
+        }
+        .search{
+            width: 300px;
+            height: 40px;
+        }
+        .table{
+            padding: 20px;
+            border: 1px solid black;
+        }
+
+       td,th{
+        padding: 10px 40px;
+        text-align: left;
+       }
+
+       @media(max-width:430px){
+        td,th{
+        padding: 10px 10px;
+        text-align: left;
+       }
+       .table{
+        width: 100%;
+       }
+       .search-field input{
+        padding-left: 15px;
+       }
+       }
+
+       @media(max-width:375px){
+        td,th{
+        padding: 10px 5px;
+        text-align: left;
+       }
+      
+       }
+
+       @media(max-width:320px){
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: block;
+            justify-content: center;
+            align-items: center;    
+        }
+       
+        .search-field input{
+            width: 100%;
+            margin: 10px 0;
+            padding-left: 15px;
+        }
+        .table{
+            width: 100%;
+            padding: 10px;
+        }
+        td,th{
+        padding: 10px 3px;
+        text-align: left;
+       }
+       }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+        <div class="search-field">
+            <input type="search" class="search" placeholder="Searching..." onkeyup="searching()">
+            <!-- <button class="search-btn">Search</button> -->
+        </div>
+        <table class="table">
+           
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Email</th>
+            </tr>
+        
+            <tr>
+                <td>Sonu</td>
+                <td>7482095532</td>
+                <td>sonu@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>Sahil</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>danish</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>atique</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>chisti</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>nirale</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>lebid</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>arzo</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>aftab</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>washim</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>shahnawaz</td>
+                <td>7482095532</td>
+                <td>sahil@gmail.com</td>
+            </tr>
+
+        
+
+        </table>
+    </div>
+    </div>
+
+    <script>
+        
+       
+
+        const searching = () =>{
+        let filter = document.querySelector('.search').value.toUpperCase();
+        let table = document.querySelector('.table');
+        let tr = table.getElementsByTagName('tr');
+
+        for(let i = 0; i < tr.length; i++){
+            let td = tr[i].getElementsByTagName('td')[0];
+            
+            if(td){
+                let textValue = td.textContent || td.innerHTML;
+
+                if(textValue.toUpperCase().indexOf(filter) > -1){
+                    tr[i].style.display = "";
+                }else{
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+            
+        }
+    </script>
+</body>
+</html>

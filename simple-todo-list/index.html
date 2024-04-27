@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Todo App</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input{
+            width: 500px;
+            height: 40px;
+            margin: 20px 0;
+            padding-left: 15px;
+            outline: none;
+            border: 1px solid blue;
+            
+        }
+        input:focus{
+            border-color: rgb(4, 255, 4);
+        }
+
+        .btn{
+          width: 100px;
+          height: 40px;
+          background-color: blue;
+          color: white;
+          border: 1px solid blue;
+          font-size: 18px;
+        }
+        .btn:hover{
+            background-color: white;
+            color: blue;
+           
+        }
+
+        .list-item{
+            width: 600px;
+            padding: 20px 30px;
+            background-color: burlywood;
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+       .operation-btn button{  
+           width: 60px;
+           padding: 5px;
+       }
+       @media(max-width:430px){
+        .container{
+            width: 100%;
+            height: auto;
+            padding: 20px;
+        }
+        .content{
+            width: 100%;
+   
+        }
+        input{
+            width: 100%;
+
+        }
+        .btn{
+            width: 100%;
+        }
+        .list-item{
+            width: 100%;
+            padding: 20px;
+        }
+        .result{
+            font-size: 25px;
+        }
+       }
+
+       @media(max-width:360px){
+        .container{
+            padding: 10px;
+        }
+        .list-item{
+            padding: 10px;
+        }
+       }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+    <h1>todo list</h1>
+    <input type="text" class="input" placeholder="Enter your word">
+    <button type="submit" class="btn">Add</button>
+    <div class="list">
+        <!-- <div class="list-item">
+        <span class="result">hiii</span>
+        <div class="operation-btn">
+        <button type="submit" class="edit">edit</button>
+        <button type="delete" class="delete">delete</button>    
+    </div>
+    </div> -->
+
+</div>
+    </div>
+</div>
+
+<script>
+    const list = document.querySelector('.list');
+    const input = document.querySelector('.input');
+    const btn = document.querySelector('.btn');
+    
+
+    const todo = () =>{
+
+        let inputVal = input.value;
+
+        if(inputVal != ""){
+
+            const htmlData = `
+        
+        <div class="list-item">
+       <span class="result">${input.value}</span>
+       <div class="operation-btn">
+       <button type="submit" class="edit">edit</button>
+       <button type="delete" class="delete">delete</button> 
+   </div>
+   </div> 
+       `;
+
+       list.insertAdjacentHTML("afterbegin",htmlData);
+
+       input.value = "";
+
+       const deleteBtn = list.querySelector(".delete");
+       const listItem = list.querySelector('.list-item');
+
+        deleteBtn.addEventListener('click', () =>{
+             listItem.remove();
+        })
+
+        }else{
+            alert("please fill the data")
+        }
+
+
+    }
+
+    btn.addEventListener('click', todo);
+</script>
+</body>
+</html>

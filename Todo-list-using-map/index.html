@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Using Map Method</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+           
+        }
+
+        .content-item{
+            display: flex;
+           
+           justify-content: center;
+        }
+
+        h1{
+            margin: 20px 0;
+        }
+
+        input{
+            height: 40px;
+            width: 300px;
+            padding-left: 15px;
+            border: 1px solid blue;
+            outline: none;
+        }
+        input:focus{
+            border-color: yellow;
+        }
+
+        .add{
+            width: 100px;
+            padding: 10px 0;
+        }
+
+        .save-data{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            
+        }
+
+        .data{
+            width: 400px;
+            display: flex;
+            justify-content: space-between;
+            background-color: aquamarine;
+            padding: 20px;
+            margin: 20px 0;
+            
+        }
+
+        .btn button{
+            width: 50px;
+            padding: 5px 0;
+        }
+
+        @media(max-width:430px){
+            .container{
+                padding: 20px;
+            }
+            .content-item{
+                width: 100%;
+            }
+            .content{
+                width: 100%;
+            }
+            input{
+                width: 100%;
+            }
+            .add{
+                width: 100%;
+                margin: 20px 0;
+            }
+            .save-data{
+                width: 100%;
+            }
+            .data{
+                width: 100%;
+                margin: 10px 0;
+            }
+
+        }
+
+        @media(max-width:360px){
+            .container{
+                padding: 10px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-item">
+        <div class="content">
+            <h1>Todo list</h1>
+            <input type="text" name="name" class="input" placeholder="Enter your data">
+            <button type="submit" class="add">Add</button>
+        </div>
+    </div>
+        <div class="save-data">
+            <!-- <div class="data">
+               
+                <p>hiiii</p>
+            
+            <div class="btn">
+                <button type="submit" class="edit">Edit</button>
+                <button type="submit" class="delete">Delete</button>
+            </div>
+        </div> -->
+
+        </div>
+    </div>
+
+    <script>
+        const addBtn = document.querySelector('.add');
+        const btnText = addBtn.innerText;
+        const input = document.querySelector('.input');
+        const saveData = document.querySelector('.save-data');
+        let arr = [];
+
+        let editId = null;
+
+
+        
+      let strObj =  localStorage.getItem('test');
+       if(strObj != null){
+       arr = JSON.parse(strObj);
+       }
+
+       displayFun();
+
+        const addTodo = () =>{
+            let inputVal = input.value;
+
+            if(editId != null){
+                // edit
+                arr.splice(editId,1,{'name':inputVal});
+                editId = null;
+            }else{
+                // insert 
+                arr.push({'name':inputVal});
+            }
+
+            saveFun();
+            input.value = "";
+            displayFun();
+            addBtn.innerText = btnText;
+        }
+
+        function saveFun(){
+            localStorage.setItem('test',JSON.stringify(arr));
+            displayFun();
+        }
+
+        function displayFun(){
+            let data = '';
+            arr.map((elm,i) =>{
+                 data += `
+                 <div class="data">
+               <p>${elm.name}</p>
+           <div class="btn">
+               <button type="submit" class="edit" onclick="editFun(${i})">Edit</button>
+               <button type="submit" class="delete" onclick="deleteFun(${i})">Delete</button>
+           </div>
+       </div> 
+                 `;
+
+                 saveData.innerHTML = data;
+            })
+        }
+
+        function deleteFun(id){
+            arr.splice(id,1);
+            saveFun();
+            displayFun();
+        }
+
+        function editFun(id){
+            editId = id;
+            input.value = arr[id].name;
+            addBtn.innerText = "Save Changes"
+            
+        }
+
+        addBtn.addEventListener('click',addTodo);
+
+       
+    </script>
+</body>
+</html>
